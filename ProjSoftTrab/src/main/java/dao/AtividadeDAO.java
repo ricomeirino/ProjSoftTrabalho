@@ -193,7 +193,7 @@ public class AtividadeDAO {
 				+ " a.projetoId, p.codigo as codProj, p.nome as nomeProj"
 				+ " from atividade a "
 				+ " inner join projeto p on (a.projetoId = p.idProjeto) "
-				+ " where p.idatividade = ?"
+				+ " where a.idatividade = ?"
 				+ " order by a.nome ";
 
 		try {

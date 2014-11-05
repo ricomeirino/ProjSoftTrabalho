@@ -14,16 +14,15 @@ public class ConnectionFactory {
 	         throw new RuntimeException(e);
 	     }
 	 }
-	public static void main(String[] args) {
-		Connection connection = new ConnectionFactory().getConnection();
-		System.out.println("Conex�o aberta!");
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	public static void main(String[] args) {
+//		Connection connection = new ConnectionFactory().getConnection();
+//		System.out.println("Conex�o aberta!");
+//		try {
+//			connection.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }

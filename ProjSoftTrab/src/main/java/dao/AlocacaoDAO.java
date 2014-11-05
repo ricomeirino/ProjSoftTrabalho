@@ -52,9 +52,9 @@ public class AlocacaoDAO {
 			stmt.close();
 			con.close();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 
-			e.printStackTrace();
+			return retorno;
 		}
 
 		return retorno;
@@ -90,9 +90,9 @@ public class AlocacaoDAO {
 			stmt.close();
 			con.close();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 
-			e.printStackTrace();
+			return retorno;
 		}
 
 		return retorno;
@@ -192,7 +192,7 @@ public class AlocacaoDAO {
 			con.close();
 
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 
 			return false;
 		}
@@ -232,5 +232,38 @@ public class AlocacaoDAO {
 
 	}
 
+	/**
+	 * Método para excluir a alocacao de um recurso a uma atividade de um projeto
+	 * 
+	 * @param alocacao
+	 *            Alocacao - alocação a ser excluída
+	 *             
+	 * @return boolean - se true indica que a alocação foi excluída, se false
+	 *         indica que exclusão da alocação NÃO foi realizada
+	 */
+	public boolean deleteAlocacaoAtivRec(Atividade atividade, Recurso recurso) {
+		this.con = new ConnectionFactory().getConnection();
+		String sql = "delete from alocacao where atividadeId= ?  and recursoId = ?";
+
+		PreparedStatement stmt;
+		try {
+
+			stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, atividade.getIdAtividade());
+			stmt.setInt(2, recurso.getIdRecurso());
+
+
+			stmt.execute();
+			stmt.close();
+			con.close();
+
+			return true;
+		} catch (SQLException e) {
+
+			return false;
+		}
+
+	}
 		
 }
