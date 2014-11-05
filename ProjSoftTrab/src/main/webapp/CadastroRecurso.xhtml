@@ -1,0 +1,146 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<ui:define name="corpo">
+<h:outputStylesheet library="css" name="sistema.css" />		
+		<h:form id="form" prependId="false">
+			<p:outputLabel value=" >> Cadastro de Recursos" styleClass="tituloFuncao"/>
+			<br />
+			<br />
+
+			<div align="center">
+
+				<p:panel id="toggleable" header="Novo Recurso" toggleable="true"
+					closable="false" toggleSpeed="500" closeSpeed="500"
+					collapsed="true" widgetVar="panel"
+					style="margin-bottom:20px; width: 400px;">
+					<table style="width: 350px; border: 0; font-size: 12px;">
+						<tr>
+							<td><p:outputLabel value="Matricula:" for="matriculaNovo"
+									style="align:left" /></td>
+							<td><p:inputText id="matriculaNovo" required="true" size="10"
+									value="#{cadastroRecursoBean.matriculaNovo}" /></td>
+							<td><p:outputLabel value="Ocupação:" for="ocupacaoNovo"
+									style="align:left" /></td>
+							<td>
+								<h:selectOneMenu value="#{cadastroRecursoBean.ocupacaoNovo}" id="ocupacaoNovo"
+											style="width:100%">
+									<f:selectItems value="#{cadastroRecursoBean.ocupacoes}"
+										var="ocp" itemLabel="#{ocp.nome}" itemValue="#{ocp.idOcupacao}" />
+								</h:selectOneMenu>
+							
+							</td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Nome:" for="nomeNovo"
+									style="align:left" /></td>
+							<td colspan="3"><p:inputText id="nomeNovo" required="true"
+									value="#{cadastroRecursoBean.nomeNovo}" size="50" /></td>
+						</tr>
+						<tr>
+							<td colspan="4"><br /></td>
+						</tr>
+						<tr>
+							<td colspan="4" align="center"><h:commandButton
+									value="Novo Recurso" onclick="CadastroRecurso.xhtml"
+									actionListener="#{cadastroRecursoBean.insereRecurso}" /></td>
+						</tr>
+					</table>
+
+				</p:panel>
+
+				<br /> <br /> <br /> <br />
+
+				<p:growl id="messages" showDetail="true" />
+				<p:accordionPanel multiple="true" id="lstRec"
+					style="width:850px;font-size:12px;">
+					<p:tab title="Lista de Recursos" closable="true">
+						<p:dataTable style="width:800px;border:0;font-size:12px;"
+							id="recs" editMode="row" paginator="true" rows="5" var="rec"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15"
+							value="#{cadastroRecursoBean.recursos}" editable="true"
+							sortBy="#{recurso.nome}" sortOrder="ascending"
+							emptyMessage="Não existem recursos com os dados pesquisados"
+							filteredValue="#{cadastroRecursoBean.recursosFiltrados}"
+							widgetVar="recursosTable">
+
+							<p:ajax event="rowEdit" listener="#{cadastroRecursoBean.onEdit}"
+								update=":form:messages" process=":form:lstRec:recs"
+								partialSubmit="true" />
+							<p:ajax event="rowEditCancel"
+								listener="#{cadastroRecursoBean.onCancel}"
+								update=":form:messages" />
+
+
+							<p:column headerText="Matrícula" filterBy="#{rec.matricula}"
+								id="matricula" filterMatchMode="contains" 
+								style="width:120px;text-align:center" sortBy="#{rec.matricula}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{rec.matricula}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="matInput" value="#{rec.matricula}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Nome" filterBy="#{rec.nome}" id="nome"
+								filterMatchMode="contains" style="width:390px;text-align:center"
+								sortBy="#{rec.nome}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{rec.nome}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="nomeInput" size="5" value="#{rec.nome}"
+											style="width:96%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Ocupação" filterBy="#{rec.ocupacao.nome}" id="ocupNome"
+								filterMatchMode="contains" style="width:110px;text-align:center"
+								sortBy="#{rec.ocupacao.nome}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{rec.ocupacao.nome}" />
+									</f:facet>
+									<f:facet name="input">
+										<h:selectOneMenu value="#{rec.ocupacao.idOcupacao}"
+											style="width:100%">
+											<f:selectItems value="#{cadastroRecursoBean.ocupacoes}"
+												var="ocp" itemLabel="#{ocp.nome}" itemValue="#{ocp.idOcupacao}" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column style="width:35px" headerText=" ">
+								<p:rowEditor />
+							</p:column>
+
+							<p:column style="width:25;text-align:center"
+								headerText=" ">
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									actionListener="#{cadastroRecursoBean.onDelete(rec)}"
+									update="recs :form:messages" process=":form:lstRec:recs" partialSubmit="true" />
+
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+				</p:accordionPanel>
+
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

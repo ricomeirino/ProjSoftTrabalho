@@ -1,0 +1,160 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+
+	<ui:define name="corpo">
+
+		<style type="text/css">
+/* Custom styles for the Timeline */
+div.timeline-frame {
+	border-color: #5D99C3;
+	border-radius: 5px;
+}
+
+div.timeline-axis {
+	border-color: #5D99C3;
+	background-color: #5D99C3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5D99C3',
+		endColorstr='#3A6DA0') alpha(opacity = 100);
+	background: -webkit-gradient(linear, left top, left bottom, from(#5D99C3),
+		to(#3A6DA0));
+	background: -moz-linear-gradient(top, #5D99C3, #3A6DA0);
+	-khtml-opacity: 1;
+	-moz-opacity: 1;
+	opacity: 1;
+}
+
+div.timeline-groups-axis {
+	border-color: #5D99C3;
+}
+
+div.timeline-groups-axis-onleft {
+	border-style: none solid none none;
+}
+
+div.timeline-axis-text {
+	color: white;
+}
+
+div.timeline-event {
+	color: white !important;
+	border-radius: 5px !important;
+}
+
+div.timeline-event-content {
+	padding: 5px;
+	text-shadow: none;
+}
+
+div.finalizada {
+	background: #008000 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.atrasada {
+	background: #FF0000 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.naoAlocada {
+	background: #FFFF00 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.naoFinalizada {
+	background: #0000FF none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.timeline-event-selected {
+	background: #BECEFE none !important;
+	border-color: #97B0F8 !important;
+}
+</style>
+
+		<h:form id="form" prependId="false">
+			<p:outputLabel value=" >> Relatório Descritivo"
+				styleClass="tituloFuncao" />
+			<br />
+			<br />
+			<div align="center">
+				<table style="border: 0; font-size: 14px; font-weight: bold;">
+					<tr>
+						<td><p:outputLabel value="Projeto Selecionado:"
+								for="projetoSelecionado" /></td>
+						<td><h:selectOneMenu
+								value="#{relatorioBean.codigoProjetoSelecionado}"
+								id="projetoSelecionado" style="width:100%;">
+								<p:ajax listener="#{relatorioBean.trocaProjeto}"
+									event="change" update="@form" />
+								<f:selectItems value="#{relatorioBean.projetos}" var="prjt"
+									itemLabel="#{prjt.nome}" itemValue="#{prjt.codigo}" />
+							</h:selectOneMenu></td>
+					</tr>
+				</table>
+				<br /> <br />
+			</div>
+
+			<div align="center">
+						<p:dataTable style="width:870px;border:0;font-size:12px;"
+							id="atvs"  var="atv"
+							value="#{relatorioBean.atividades}">
+
+							<p:column headerText="Código" 
+								id="codigo" style="width:110px;text-align:center" sortBy="#{atv.codigo}">
+									<h:outputText value="#{atv.codigo}" />
+							</p:column>
+
+							<p:column headerText="Nome" id="nome"
+								style="width:280px;text-align:center"
+								sortBy="#{atv.nome}">
+										<h:outputText value="#{atv.nome}" />
+							</p:column>
+
+							<p:column headerText="Início" id="inicio" sortBy="#{atv.inicio}"
+								style="width:55px;text-align:center">
+										<h:outputText value="#{atv.inicioFormatada}" />
+							</p:column>
+							<p:column headerText="Fim" id="fim" sortBy="#{atv.fim}"
+								style="width:55px;text-align:center">
+										<h:outputText value="#{atv.fimFormatada}" />
+							</p:column>
+
+							<p:column headerText="Final." id="finalizada"
+								 style="width:55px;text-align:center"
+								sortBy="#{atv.finalizadaFormatada}">
+										<h:outputText value="#{atv.finalizadaFormatada}" />
+							</p:column>
+							
+							<p:column headerText="Matricula" id="matricula"
+								 style="width:75px;text-align:center"
+								sortBy="#{atv.recurso.matricula}">
+										<h:outputText value="#{atv.recurso.matricula}" />
+							</p:column>
+							<p:column headerText="Nome" id="nomeRec"
+								 style="width:105px;text-align:center"
+								sortBy="#{atv.recurso.nome}">
+										<h:outputText value="#{atv.recurso.nome}" />
+							</p:column>
+							
+							<p:column headerText="Ocupacao" id="ocupacao"
+								 style="width:85px;text-align:center"
+								sortBy="#{atv.recurso.ocupacao.nome}">
+										<h:outputText value="#{atv.recurso.ocupacao.nome}" />
+							</p:column>
+
+						</p:dataTable>
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

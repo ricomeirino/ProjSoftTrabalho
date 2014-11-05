@@ -1,0 +1,151 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+
+	<ui:define name="corpo">
+
+		<style type="text/css">
+/* Custom styles for the Timeline */
+div.timeline-frame {
+	border-color: #5D99C3;
+	border-radius: 5px;
+}
+
+div.timeline-axis {
+	border-color: #5D99C3;
+	background-color: #5D99C3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5D99C3',
+		endColorstr='#3A6DA0') alpha(opacity = 100);
+	background: -webkit-gradient(linear, left top, left bottom, from(#5D99C3),
+		to(#3A6DA0));
+	background: -moz-linear-gradient(top, #5D99C3, #3A6DA0);
+	-khtml-opacity: 1;
+	-moz-opacity: 1;
+	opacity: 1;
+}
+
+div.timeline-groups-axis {
+	border-color: #5D99C3;
+}
+
+div.timeline-groups-axis-onleft {
+	border-style: none solid none none;
+}
+
+div.timeline-axis-text {
+	color: white;
+}
+
+div.timeline-event {
+	color: white !important;
+	border-radius: 5px !important;
+}
+
+div.timeline-event-content {
+	padding: 5px;
+	text-shadow: none;
+}
+
+div.finalizada {
+	background: #008000 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.atrasada {
+	background: #FF0000 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.naoAlocada {
+	background: #FFFF00 none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.naoFinalizada {
+	background: #0000FF none !important; /* red */
+	border-color: #bd2828 !important; /* red */
+}
+
+div.timeline-event-selected {
+	background: #BECEFE none !important;
+	border-color: #97B0F8 !important;
+}
+</style>
+
+		<h:form id="form" prependId="false">
+			<p:outputLabel value=" >> Gráfico de Gantt do Projeto"
+				styleClass="tituloFuncao" />
+			<br />
+			<br />
+			<div align="center">
+				<table style="border: 0; font-size: 14px; font-weight: bold;">
+					<tr>
+						<td><p:outputLabel value="Projeto Selecionado:"
+								for="projetoSelecionado" /></td>
+						<td><h:selectOneMenu
+								value="#{relatorioGanttBean.codigoProjetoSelecionado}"
+								id="projetoSelecionado" style="width:100%;">
+								<p:ajax listener="#{relatorioGanttBean.trocaProjeto}"
+									event="change" update="@form" />
+								<f:selectItems value="#{relatorioGanttBean.projetos}" var="prjt"
+									itemLabel="#{prjt.nome}" itemValue="#{prjt.codigo}" />
+							</h:selectOneMenu></td>
+					</tr>
+				</table>
+				<br /> <br />
+			</div>
+
+			<div align="center">
+				<table align="center" style="width: 450px">
+					<tr align="center">
+						<td><p:outputLabel value="Finalizada" /></td>
+						<td><p:outputLabel value="Atrasada" /></td>
+						<td><p:outputLabel value="Não Alocada" /></td>
+						<td><p:outputLabel value="Não Finalizada" /></td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div class="finalizada" style="width: 25px;">
+								<div class="timeline-event-content"></div>
+							</div>
+						</td>
+						<td align="center">
+							<div class="atrasada" style="width: 25px;">
+								<div class="timeline-event-content"></div>
+							</div>
+						</td>
+						<td align="center">
+							<div class="naoAlocada" style="width: 25px;">
+								<div class="timeline-event-content"></div>
+							</div>
+						</td>
+						<td align="center">
+							<div class="naoFinalizada" style="width: 25px;">
+								<div class="timeline-event-content"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<p:growl id="growl" showSummary="true" showDetail="true"
+				autoUpdate="true" escape="false" />
+
+			<pe:timeline id="timelineSecond" axisOnTop="true" zoomMin="4055500000" zoomMax="4055500000"
+				styleClass="barraVermelha" value="#{relatorioGanttBean.modelGantt}"
+				style="margin-top:20px;">
+
+				<p:ajax event="select" listener="#{relatorioGanttBean.onSelect}" />
+
+			</pe:timeline>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

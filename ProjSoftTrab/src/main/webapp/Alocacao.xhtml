@@ -1,0 +1,174 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<ui:define name="corpo">
+		<h:outputStylesheet library="css" name="sistema.css" />
+		<h:form id="form" prependId="false">
+			<p:growl id="messages" showDetail="true" />
+			<p:outputLabel value=" >> Alocação de Recursos"
+				styleClass="tituloFuncao" />
+			<br />
+			<br />
+
+			<div align="center">
+				<table style="border: 0; font-size: 14px; font-weight: bold;">
+					<tr>
+						<td><p:outputLabel value="Projeto Selecionado:"
+								for="projetoSelecionado" /></td>
+						<td><h:selectOneMenu
+								value="#{alocacaoRecursoBean.codigoProjetoSelecionado}"
+								id="projetoSelecionado" style="width:100%;">
+								<p:ajax listener="#{alocacaoRecursoBean.trocaProjeto}"
+									event="change" update="@form" />
+								<f:selectItems value="#{alocacaoRecursoBean.projetos}"
+									var="prjt" itemLabel="#{prjt.nome}" itemValue="#{prjt.codigo}" />
+							</h:selectOneMenu></td>
+					</tr>
+				</table>
+				<br /> <br />
+
+				<p:panelGrid columns="3" styleClass="semBorda"
+					style="margin-right: 100px;margin-left: 100px;">
+
+					<h:panelGroup>
+						<p:outputLabel value="Atividades"
+							style="font-weight: bold;font-size:18px;margin-left: 220px;"
+							styleClass="subTituloTabela" />
+						<p:dataTable style="border:0;font-size:12px;" var="atv"
+							scrollable="true" scrollHeight="150"
+							value="#{alocacaoRecursoBean.atividades}" selectionMode="single"
+							selection="#{alocacaoRecursoBean.atividadeSelecionada}"
+							rowKey="#{atv.idAtividade}">
+							<p:column headerText="Código" footerText="Código" id="codigo"
+								style="width:75px;text-align:center" sortBy="#{atv.codigo}">
+								<h:outputText value="#{atv.codigo}" />
+							</p:column>
+
+							<p:column headerText="Nome" footerText="Nome" id="nome"
+								style="width:300px;text-align:center" sortBy="#{atv.nome}">
+								<h:outputText value="#{atv.nome}" />
+							</p:column>
+
+							<p:column headerText="Início" footerText="Início" id="inicio"
+								sortBy="#{atv.inicio}" style="width:55px;text-align:center">
+								<h:outputText value="#{atv.inicioFormatada}" />
+							</p:column>
+							<p:column headerText="Fim" footerText="Fim" id="fim"
+								sortBy="#{atv.fim}" style="width:55px;text-align:center">
+								<h:outputText value="#{atv.fimFormatada}" />
+							</p:column>
+
+						</p:dataTable>
+					</h:panelGroup>
+
+
+					<p:commandButton value="Alocar"
+						actionListener="#{alocacaoRecursoBean.alocaRecurso}"
+						onclick="Alocacao.xhtml" />
+					<h:panelGroup>
+						<p:outputLabel value="Recursos"
+							style="font-weight: bold;font-size:18px;margin-left: 200px;"
+							styleClass="subTituloTabela" />
+						<p:dataTable style="font-size:12px;" var="rec" scrollable="true"
+							scrollHeight="150" value="#{alocacaoRecursoBean.recursos}"
+							selectionMode="single"
+							selection="#{alocacaoRecursoBean.recursoSelecionado}"
+							rowKey="#{rec.idRecurso}">
+
+							<p:column headerText="Matrícula" footerText="Matrícula"
+								id="matricula" style="width:75px;text-align:center"
+								sortBy="#{rec.matricula}">
+								<h:outputText value="#{rec.matricula}" />
+							</p:column>
+
+							<p:column headerText="Nome" footerText="Nome" id="nome"
+								style="width:210px;text-align:center" sortBy="#{rec.nome}">
+								<h:outputText value="#{rec.nome}" />
+							</p:column>
+
+							<p:column headerText="Ocupação" footerText="Ocupação"
+								id="ocupNome" style="width:90px;text-align:center"
+								sortBy="#{rec.ocupacao.nome}">
+								<h:outputText value="#{rec.ocupacao.nome}" />
+							</p:column>
+
+						</p:dataTable>
+					</h:panelGroup>
+				</p:panelGrid>
+				<br /> <br />
+				<p:separator style="height:5px" />
+				<br /> <br />
+
+				<p:panelGrid columns="1" styleClass="semBorda"
+					style="margin-right: 100px;margin-left: 100px;">
+					<p:dataTable style="border:0;font-size:12px;" var="aloc"
+						scrollable="true" scrollHeight="150"
+						value="#{alocacaoRecursoBean.alocacoes}">
+						<p:column headerText="Cod.Atv." footerText="Cod.Atv." id="codigo"
+							style="width:75px;text-align:center"
+							sortBy="#{aloc.atividade.codigo}">
+							<h:outputText value="#{aloc.atividade.codigo}" />
+						</p:column>
+
+						<p:column headerText="Atividade" footerText="Atividade"
+							id="nomeAtv" style="width:300px;text-align:center"
+							sortBy="#{aloc.atividade.nome}">
+							<h:outputText value="#{aloc.atividade.nome}" />
+						</p:column>
+
+						<p:column headerText="Início" footerText="Início" id="inicio"
+							sortBy="#{aloc.atividade.inicio}"
+							style="width:55px;text-align:center">
+							<h:outputText value="#{aloc.atividade.inicioFormatada}" />
+						</p:column>
+						<p:column headerText="Fim" footerText="Fim" id="fim"
+							sortBy="#{aloc.atividade.fim}"
+							style="width:55px;text-align:center">
+							<h:outputText value="#{aloc.atividade.fimFormatada}" />
+						</p:column>
+						
+						<p:column headerText="Final." id="finalizada"
+							 style="width:55px;text-align:center"
+							sortBy="#{aloc.atividade.finalizadaFormatada}">
+									<h:outputText value="#{aloc.atividade.finalizadaFormatada}" />
+						</p:column>
+						<p:column headerText="Mat.Rec." footerText="Mat.Rec."
+							id="matricula" style="width:75px;text-align:center"
+							sortBy="#{aloc.recurso.matricula}">
+							<h:outputText value="#{aloc.recurso.matricula}" />
+						</p:column>
+
+						<p:column headerText="Recurso" footerText="Recurso" id="nomeREc"
+							style="width:210px;text-align:center"
+							sortBy="#{aloc.recurso.nome}">
+							<h:outputText value="#{aloc.recurso.nome}" />
+						</p:column>
+
+						<p:column headerText="Ocupação" footerText="Ocupação"
+							id="ocupNome" style="width:90px;text-align:center"
+							sortBy="#{aloc.recurso.ocupacao.nome}">
+							<h:outputText value="#{aloc.recurso.ocupacao.nome}" />
+						</p:column>
+
+						<p:column style="width:55px;text-align:center"
+							headerText="Desalocar" footerText="Desalocar">
+							<p:commandButton icon="ui-icon-transferthick-e-w"
+								title="Desalocar Recurso"
+								actionListener="#{alocacaoRecursoBean.desalocar(aloc)}"
+								update="@form" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+
+				<br /> <br />
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

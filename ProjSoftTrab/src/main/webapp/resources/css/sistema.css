@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+	
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 40px;
+	
+	background-color: #545454;
+	color: #fff;
+	
+	box-shadow: 0px 2px 2px #ccc;
+}
+
+header > div {
+	margin-left: 8px
+}
+
+#conteudo {
+	padding: 0px 8px
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px
+	font-weight: bold;
+	color: #0000FF;
+}
+
+
+.tituloFuncao{
+	font-size: 20px;
+	font-family: Comic Sans MS, cursive, sans-serif;
+	margin: 0px;
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.subTituloTabela{
+	font-size: 20px;
+	font-family: Comic Sans MS, cursive, sans-serif;
+	margin: 0px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.semBorda tr, .semBorda td {  
+    border: none !important;  
+}
+.comBorda tr, .comBorda td {  
+    border: solid !important;  
+}

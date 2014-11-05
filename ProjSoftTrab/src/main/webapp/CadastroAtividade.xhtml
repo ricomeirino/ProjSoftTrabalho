@@ -1,0 +1,197 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<ui:define name="corpo">
+		<h:outputStylesheet library="css" name="sistema.css" />
+		<h:form id="form" prependId="false">
+			<p:outputLabel value=" >> Cadastro de Atividades do Projeto"
+				styleClass="tituloFuncao" />
+			<br />
+			<br />
+
+			<div align="center">
+				<table style="border: 0; font-size: 14px; font-weight: bold;">
+					<tr>
+						<td><p:outputLabel value="Projeto Selecionado:"
+								for="projetoSelecionado" /></td>
+						<td><h:selectOneMenu
+								value="#{cadastroAtividadeBean.codigoProjetoSelecionado}"
+								id="projetoSelecionado" style="width:100%;">
+								<p:ajax listener="#{cadastroAtividadeBean.trocaProjeto}"
+									event="change" update="@form" />
+								<f:selectItems value="#{cadastroAtividadeBean.projetos}"
+									var="prjt" itemLabel="#{prjt.nome}" itemValue="#{prjt.codigo}" />
+							</h:selectOneMenu></td>
+					</tr>
+				</table>
+				<br /> <br />
+				<p:panel id="toggleable" header="Nova Atividade do Projeto"
+					toggleable="true" closable="false" toggleSpeed="500"
+					closeSpeed="500" collapsed="true" widgetVar="panel"
+					style="margin-bottom:20px; width: 400px;">
+
+
+
+
+					<table style="width: 350px; border: 0; font-size: 12px;">
+						<tr>
+							<td><p:outputLabel value="Código:" for="codigoNovo"
+									style="align:left" /></td>
+							<td><p:inputText id="codigoNovo" required="true"
+									value="#{cadastroAtividadeBean.codigoNovo}" /></td>
+							<td><p:outputLabel value="" /></td>
+							<td><p:outputLabel value="" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Nome:" for="nomeNovo"
+									style="align:left" /></td>
+							<td colspan="3"><p:inputText id="nomeNovo" required="true"
+									value="#{cadastroAtividadeBean.nomeNovo}" size="50" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Inicio:" for="inicioNovo"
+									style="align:left" /></td>
+							<td><p:calendar id="inicioNovo" required="true" value="#{cadastroAtividadeBean.inicioNovo}"
+									pattern="dd/MM/yyyy" readonly="false" navigator="false"
+									locale="pt" size="10" /></td>
+							<td><p:outputLabel value="Fim:" for="fimNovo"
+									style="align:left" /></td>
+							<td><p:calendar id="fimNovo" required="true" value="#{cadastroAtividadeBean.fimNovo}"
+									pattern="dd/MM/yyyy" readonly="false" navigator="false"
+									locale="pt" size="10" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><br /></td>
+						</tr>
+						<tr>
+							<td colspan="4" align="center"><h:commandButton
+									value="Nova Atividade" onclick="CadastroAtividade.xhtml"
+									actionListener="#{cadastroAtividadeBean.insereAtividade}" /></td>
+						</tr>
+					</table>
+
+				</p:panel>
+
+				<br /> <br />
+
+				<p:growl id="messages" showDetail="true" />
+				<p:accordionPanel multiple="true" id="lstAtv"
+					style="width:900px;font-size:12px;">
+					<p:tab
+						title="Lista de Atividades do Projeto: #{cadastroAtividadeBean.projetoSelecionado.nome}"
+						closable="true">
+						<p:dataTable style="width:870px;border:0;font-size:12px;"
+							id="atvs" editMode="row" paginator="true" rows="5" var="atv"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15"
+							value="#{cadastroAtividadeBean.atividades}" editable="true"
+							sortBy="#{projeto.nome}" sortOrder="ascending"
+							emptyMessage="Não existem atividades do projeto com os dados pesquisados"
+							filteredValue="#{cadastroAtividadeBean.atividadesFiltradas}"
+							widgetVar="atividadesTable">
+
+							<p:ajax event="rowEdit" listener="#{cadastroAtividadeBean.onEdit}"
+								update=":form:messages" process=":form:lstAtv:atvs"
+								partialSubmit="true" />
+							<p:ajax event="rowEditCancel"
+								listener="#{cadastroAtividadeBean.onCancel}"
+								update=":form:messages" />
+
+
+							<p:column headerText="Código" filterBy="#{atv.codigo}"
+								id="codigo" filterMatchMode="contains"
+								style="width:110px;text-align:center" sortBy="#{atv.codigo}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{atv.codigo}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="codInput" value="#{atv.codigo}"
+											style="width:100%"/>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Nome" filterBy="#{atv.nome}" id="nome"
+								filterMatchMode="contains" style="width:380px;text-align:center"
+								sortBy="#{atv.nome}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{atv.nome}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="nomeInput" size="5" value="#{atv.nome}"
+											style="width:96%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Início" id="inicio" sortBy="#{atv.inicio}"
+								style="width:55px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{atv.inicioFormatada}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{atv.inicio}" id="dtInicio" size="8"
+											 pattern="dd/MM/yyyy" locale="pt" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Fim" id="fim" sortBy="#{atv.fim}"
+								style="width:55px;text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{atv.fimFormatada}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar value="#{atv.fim}" id="dtFim" size="8"
+											 pattern="dd/MM/yyyy" locale="pt" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Final." id="finalizada"
+								 style="width:55px;text-align:center"
+								sortBy="#{atv.finalizadaFormatada}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{atv.finalizadaFormatada}" />
+									</f:facet>
+									<f:facet name="input">
+										<h:selectOneMenu value="#{atv.finalizadaFormatada}"
+											style="width:100%">
+											<f:selectItem itemLabel="Sim" itemValue="Sim"/>
+											<f:selectItem itemLabel="Não" itemValue="Não"/>
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText=" "  style="width:35px">
+								
+								<p:rowEditor />
+							</p:column>
+
+							<p:column style="width:25px;text-align:center" headerText=" ">
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									actionListener="#{cadastroAtividadeBean.onDelete(atv)}"
+									update="atvs :form:messages" process=":form:lstAtv:atvs"
+									partialSubmit="true" />
+
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+				</p:accordionPanel>
+
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

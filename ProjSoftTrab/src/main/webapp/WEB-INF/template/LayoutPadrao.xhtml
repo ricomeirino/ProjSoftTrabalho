@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo">ParcHumanos - Programa de Alocação de Recursos Clássico - Humanos</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+	<script>
+		PrimeFaces.locales['pt'] = {
+		    closeText: 'Fechar',
+		    prevText: 'Anterior',
+		    nextText: 'Próximo',
+		    currentText: 'Começo',
+		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
+		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+		    dayNamesMin: ['D','S','T','Q','Q','S','S'],
+		    weekHeader: 'Semana',
+		    firstDay: 0,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: '',
+		    timeOnlyTitle: 'Só Horas',
+		    timeText: 'Tempo',
+		    hourText: 'Hora',
+		    minuteText: 'Minuto',
+		    secondText: 'Segundo',
+		    ampm: false,
+		    month: 'Mês',
+		    week: 'Semana',
+		    day: 'Dia',
+		    allDayText : 'Todo o Dia'
+		};
+	</script>
+</h:head>
+
+<h:body>
+	<header> <h:form id="formHeader">
+		<table>
+			<tr>
+				<td>&nbsp;&nbsp; 
+					<h:link outcome="Home.xhtml"> 
+						<h:graphicImage library="images" name="logo-parcHumanos.png" />
+					</h:link>
+				</td>
+				<td width="350"><p:outputLabel /></td>
+				<td><p:menubar>
+						<p:menuitem value="Alocação de Recursos" style="width:150px" outcome="Alocacao.xhtml" />
+						<p:menuitem value="Cadastro de Recursos" style="width:150px" outcome="CadastroRecurso.xhtml" />
+						<p:menuitem value="Cadastro de Projetos" style="width:150px" outcome="CadastroProjeto.xhtml" />
+						<p:menuitem value="Cadastro de Atividades"
+							style="text-align:center;width:160px" outcome="CadastroAtividade.xhtml" />
+						<p:submenu label="Relatório" style="width:100px">
+							<p:menuitem value="Descritivo" outcome="RelatorioDescritivo.xhtml" />
+							<p:menuitem value="Gráfico de Gantt" outcome="GanttRelatorio.xhtml" />	
+						</p:submenu>
+						
+
+					</p:menubar></td>
+			</tr>
+		</table>
+
+
+	</h:form> </header>
+</h:body>
+
+<div id="conteudo">
+	<ui:insert name="corpo" />
+</div>
+
+<p:separator style="margin-top: 20px" />
+
+<footer style="font-family: Comic Sans MS, cursive, sans-serif;color: #0000FF;"> Projeto de Software: Valéria Priscilla Monteiro -
+Ricardo J Meirino - Dayse Yanne Caldas </footer>
+
+</html>
