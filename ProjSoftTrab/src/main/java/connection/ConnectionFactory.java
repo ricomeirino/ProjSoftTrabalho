@@ -9,8 +9,8 @@ public class ConnectionFactory {
 	public Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
-			 		"jdbc:mysql://localhost/parc", "root", "");
-			//		"jdbc:mysql://localhost/parcTeste", "root", "");
+			// 		"jdbc:mysql://localhost/parc", "root", "");
+					"jdbc:mysql://localhost/parcTeste", "root", "");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
