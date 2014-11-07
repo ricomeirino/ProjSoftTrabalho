@@ -128,9 +128,7 @@ public class AlocacaoControlTest {
 
 		Mensagem result = alocacaoControl.insertAlocacao(atividade, recurso);
 
-		//assertEquals(expected.getCodigo(), result.getCodigo());
-
-		assertSame(expected, result);
+		assertEquals(expected.getCodigo(), result.getCodigo());
 		
 		// Inserir alocacao sem recurso
 		recurso = null;

@@ -27,7 +27,7 @@ public class AlocacaoDAOTest {
 
 	}
 
-	// Teste para verificar um recurso alocado na base
+	// Teste para verificar um recurso alocado
 	@Test
 	public void recursoEstaAlocadoTest2() {
 
