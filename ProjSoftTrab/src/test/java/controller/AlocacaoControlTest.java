@@ -1,6 +1,6 @@
 package controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,28 @@ public class AlocacaoControlTest {
 
 	}
 
+	@Test
+	public void atividadesDoProjetoSemAlocacaoTest2() {
+		Projeto projetoSelecionado = new Projeto();
+		projetoSelecionado.setIdProjeto(20);
+
+		// Lista com os idAtividades das atividades esperadas
+		List<Integer> expected = new ArrayList<Integer>();
+		expected.add(33);
+		expected.add(34);
+
+		List<Atividade> result = alocacaoControl
+				.atividadesDoProjetoSemAlocacao(projetoSelecionado);
+
+		assertEquals(expected.size(), result.size());
+
+		for (int i = 0; i < expected.size(); i++) {
+			assertEquals(expected.get(i).intValue(), result.get(i)
+					.getIdAtividade());
+		}
+
+	}	
+	
 	@Test
 	public void listaRecursosDesalocadosTest() {
 		// Lista com os idRecurso dos recurso desalocados esperados
@@ -106,8 +128,10 @@ public class AlocacaoControlTest {
 
 		Mensagem result = alocacaoControl.insertAlocacao(atividade, recurso);
 
-		assertEquals(expected.getCodigo(), result.getCodigo());
+		//assertEquals(expected.getCodigo(), result.getCodigo());
 
+		assertSame(expected, result);
+		
 		// Inserir alocacao sem recurso
 		recurso = null;
 		atividade = new Atividade();
