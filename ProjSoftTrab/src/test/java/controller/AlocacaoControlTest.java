@@ -1,7 +1,7 @@
 package controller;
 
 import static org.junit.Assert.assertEquals;
-
+import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import modelo.Atividade;
 import modelo.Projeto;
 import modelo.Recurso;
 
-import org.junit.Test;
+
 
 import util.Mensagem;
 import dao.AlocacaoDAO;
@@ -91,7 +91,7 @@ public class AlocacaoControlTest {
 	}
 
 	@Test
-	public void insertAlocacao() {
+	public void insertAlocacaoTest() {
 		Atividade atividade = null;
 		Recurso recurso = null;
 

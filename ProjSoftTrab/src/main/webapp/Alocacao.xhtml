@@ -38,8 +38,7 @@
 
 					<h:panelGroup>
 						<p:outputLabel value="Atividades"
-							style="font-weight: bold;font-size:18px;margin-left: 220px;"
-							styleClass="subTituloTabela" />
+							style="font-weight: bold;font-size:18px;margin-left: 220px; color: #000000"/>
 						<p:dataTable style="border:0;font-size:12px;" var="atv"
 							scrollable="true" scrollHeight="150"
 							value="#{alocacaoRecursoBean.atividades}" selectionMode="single"
@@ -73,8 +72,7 @@
 						onclick="Alocacao.xhtml" />
 					<h:panelGroup>
 						<p:outputLabel value="Recursos"
-							style="font-weight: bold;font-size:18px;margin-left: 200px;"
-							styleClass="subTituloTabela" />
+							style="font-weight: bold;font-size:18px;margin-left: 200px; color: #000000" />
 						<p:dataTable style="font-size:12px;" var="rec" scrollable="true"
 							scrollHeight="150" value="#{alocacaoRecursoBean.recursos}"
 							selectionMode="single"
@@ -107,63 +105,67 @@
 
 				<p:panelGrid columns="1" styleClass="semBorda"
 					style="margin-right: 100px;margin-left: 100px;">
-					<p:dataTable style="border:0;font-size:12px;" var="aloc"
-						scrollable="true" scrollHeight="150"
-						value="#{alocacaoRecursoBean.alocacoes}">
-						<p:column headerText="Cod.Atv." footerText="Cod.Atv." id="codigo"
-							style="width:75px;text-align:center"
-							sortBy="#{aloc.atividade.codigo}">
-							<h:outputText value="#{aloc.atividade.codigo}" />
-						</p:column>
-
-						<p:column headerText="Atividade" footerText="Atividade"
-							id="nomeAtv" style="width:300px;text-align:center"
-							sortBy="#{aloc.atividade.nome}">
-							<h:outputText value="#{aloc.atividade.nome}" />
-						</p:column>
-
-						<p:column headerText="Início" footerText="Início" id="inicio"
-							sortBy="#{aloc.atividade.inicio}"
-							style="width:55px;text-align:center">
-							<h:outputText value="#{aloc.atividade.inicioFormatada}" />
-						</p:column>
-						<p:column headerText="Fim" footerText="Fim" id="fim"
-							sortBy="#{aloc.atividade.fim}"
-							style="width:55px;text-align:center">
-							<h:outputText value="#{aloc.atividade.fimFormatada}" />
-						</p:column>
-						
-						<p:column headerText="Final." id="finalizada"
-							 style="width:55px;text-align:center"
-							sortBy="#{aloc.atividade.finalizadaFormatada}">
-									<h:outputText value="#{aloc.atividade.finalizadaFormatada}" />
-						</p:column>
-						<p:column headerText="Mat.Rec." footerText="Mat.Rec."
-							id="matricula" style="width:75px;text-align:center"
-							sortBy="#{aloc.recurso.matricula}">
-							<h:outputText value="#{aloc.recurso.matricula}" />
-						</p:column>
-
-						<p:column headerText="Recurso" footerText="Recurso" id="nomeREc"
-							style="width:210px;text-align:center"
-							sortBy="#{aloc.recurso.nome}">
-							<h:outputText value="#{aloc.recurso.nome}" />
-						</p:column>
-
-						<p:column headerText="Ocupação" footerText="Ocupação"
-							id="ocupNome" style="width:90px;text-align:center"
-							sortBy="#{aloc.recurso.ocupacao.nome}">
-							<h:outputText value="#{aloc.recurso.ocupacao.nome}" />
-						</p:column>
-
-						<p:column style="width:55px;text-align:center"
-							headerText="Desalocar" footerText="Desalocar">
-							<p:commandButton icon="ui-icon-transferthick-e-w"
-								title="Desalocar Recurso"
-								actionListener="#{alocacaoRecursoBean.desalocar(aloc)}"
-								update="@form" />
-						</p:column>
-					</p:dataTable>
+					<h:panelGroup>
+						<p:outputLabel value="Atividades com recursos alocados"
+								style="font-weight: bold;font-size:18px;margin-left: 450px; color: #000000" />
+						<p:dataTable style="border:0;font-size:12px;" var="aloc"
+							scrollable="true" scrollHeight="150"
+							value="#{alocacaoRecursoBean.alocacoes}">
+							<p:column headerText="Cod.Atv." footerText="Cod.Atv." id="codigo"
+								style="width:75px;text-align:center"
+								sortBy="#{aloc.atividade.codigo}">
+								<h:outputText value="#{aloc.atividade.codigo}" />
+							</p:column>
+	
+							<p:column headerText="Atividade" footerText="Atividade"
+								id="nomeAtv" style="width:300px;text-align:center"
+								sortBy="#{aloc.atividade.nome}">
+								<h:outputText value="#{aloc.atividade.nome}" />
+							</p:column>
+	
+							<p:column headerText="Início" footerText="Início" id="inicio"
+								sortBy="#{aloc.atividade.inicio}"
+								style="width:55px;text-align:center">
+								<h:outputText value="#{aloc.atividade.inicioFormatada}" />
+							</p:column>
+							<p:column headerText="Fim" footerText="Fim" id="fim"
+								sortBy="#{aloc.atividade.fim}"
+								style="width:55px;text-align:center">
+								<h:outputText value="#{aloc.atividade.fimFormatada}" />
+							</p:column>
+							
+							<p:column headerText="Final." id="finalizada"
+								 style="width:55px;text-align:center"
+								sortBy="#{aloc.atividade.finalizadaFormatada}">
+										<h:outputText value="#{aloc.atividade.finalizadaFormatada}" />
+							</p:column>
+							<p:column headerText="Mat.Rec." footerText="Mat.Rec."
+								id="matricula" style="width:75px;text-align:center"
+								sortBy="#{aloc.recurso.matricula}">
+								<h:outputText value="#{aloc.recurso.matricula}" />
+							</p:column>
+	
+							<p:column headerText="Recurso" footerText="Recurso" id="nomeREc"
+								style="width:210px;text-align:center"
+								sortBy="#{aloc.recurso.nome}">
+								<h:outputText value="#{aloc.recurso.nome}" />
+							</p:column>
+	
+							<p:column headerText="Ocupação" footerText="Ocupação"
+								id="ocupNome" style="width:90px;text-align:center"
+								sortBy="#{aloc.recurso.ocupacao.nome}">
+								<h:outputText value="#{aloc.recurso.ocupacao.nome}" />
+							</p:column>
+	
+							<p:column style="width:55px;text-align:center"
+								headerText="Desalocar" footerText="Desalocar">
+								<p:commandButton icon="ui-icon-transferthick-e-w"
+									title="Desalocar Recurso"
+									actionListener="#{alocacaoRecursoBean.desalocar(aloc)}"
+									update="@form" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGroup>
 				</p:panelGrid>
 
 				<br /> <br />

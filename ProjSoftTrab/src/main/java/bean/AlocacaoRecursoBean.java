@@ -8,11 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import util.Mensagem;
 import modelo.Alocacao;
 import modelo.Atividade;
 import modelo.Projeto;
 import modelo.Recurso;
+import util.Mensagem;
 import controller.AlocacaoControl;
 import controller.CadastroProjetoControl;
 
@@ -111,7 +111,6 @@ public class AlocacaoRecursoBean implements Serializable {
 		this.projetoSelecionado = projetoSelecionado;
 	}
 
-	
 	public void trocaProjeto() {
 		// buscar o projeto selecionado
 
@@ -133,12 +132,13 @@ public class AlocacaoRecursoBean implements Serializable {
 			AlocacaoControl alocacaoControl = new AlocacaoControl();
 			Mensagem mensagem = alocacaoControl.insertAlocacao(
 					atividadeSelecionada, recursoSelecionado);
-			if (mensagem.getCodigo() == 0){
+			if (mensagem.getCodigo() == 0) {
 				this.atividades = alocacaoControl
 						.atividadesDoProjetoSemAlocacao(projetoSelecionado);
 				this.recursos = alocacaoControl.listaRecursosDesalocados();
 
-				this.alocacoes = alocacaoControl.listaAlocacoes(projetoSelecionado);
+				this.alocacoes = alocacaoControl
+						.listaAlocacoes(projetoSelecionado);
 			}
 		} else {
 			String mensagem = null;
@@ -150,24 +150,22 @@ public class AlocacaoRecursoBean implements Serializable {
 		}
 
 	}
-	
-	public void desalocar(Alocacao alocacao){
+
+	public void desalocar(Alocacao alocacao) {
 		AlocacaoControl alocacaoControl = new AlocacaoControl();
 		Mensagem mensagem = alocacaoControl.deleteAlocacao(alocacao);
 		FacesMessage msg = null;
-		if (mensagem.getCodigo() == 0){
+		if (mensagem.getCodigo() == 0) {
 			this.atividades = alocacaoControl
 					.atividadesDoProjetoSemAlocacao(projetoSelecionado);
 			this.recursos = alocacaoControl.listaRecursosDesalocados();
 
-			this.alocacoes = alocacaoControl.listaAlocacoes(projetoSelecionado);			
-			msg = new FacesMessage(mensagem.getMsg(),null);
-		}else{
-			msg = new FacesMessage(mensagem.getMsg(),
-					"!!!    ATENÇÃO    !!!");
+			this.alocacoes = alocacaoControl.listaAlocacoes(projetoSelecionado);
+			msg = new FacesMessage(mensagem.getMsg(), null);
+		} else {
+			msg = new FacesMessage(mensagem.getMsg(), "!!!    ATENÇÃO    !!!");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-
 
 }
