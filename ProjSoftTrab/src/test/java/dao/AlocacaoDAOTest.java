@@ -13,8 +13,6 @@ import modelo.Recurso;
 import org.junit.Test;
 
 public class AlocacaoDAOTest {
-
-	//Comentario para teste do commit no gitHub usando o usuário ricomeirino
 	
 	AlocacaoDAO alocacaoDAO = new AlocacaoDAO();
 
