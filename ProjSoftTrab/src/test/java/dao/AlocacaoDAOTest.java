@@ -14,6 +14,8 @@ import org.junit.Test;
 
 public class AlocacaoDAOTest {
 
+	//Comentario para teste do commit no gitHub
+	
 	AlocacaoDAO alocacaoDAO = new AlocacaoDAO();
 
 	// Teste para verificar um recurso não alocado
