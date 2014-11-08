@@ -13,7 +13,7 @@ import modelo.Recurso;
 import org.junit.Test;
 
 public class AlocacaoDAOTest {
-	///aaaaaaaaaaaaaaaaaaaaaa
+
 	AlocacaoDAO alocacaoDAO = new AlocacaoDAO();
 
 	// Teste para verificar um recurso não alocado
